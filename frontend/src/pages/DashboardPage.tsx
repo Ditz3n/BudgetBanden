@@ -27,8 +27,8 @@ const Dashboard = () => {
   const [currentExpense, setCurrentExpense] = useState<Expense | null>(null);
   const navigate = useNavigate();
   const months = [
-    'Januar', 'Februar', 'Marts', 'April', 'Maj', 'Juni',
-    'Juli', 'August', 'September', 'Oktober', 'November', 'December'
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
   const fetchUserData = async () => {
@@ -80,6 +80,8 @@ const Dashboard = () => {
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setYear(parseInt(event.target.value));
+    setSelectedMonth(null); // Reset selected month when year changes
+    setExpensesForMonth([]); // Clear the expenses list
   };
 
   const handleLogout = () => {
@@ -131,7 +133,11 @@ const Dashboard = () => {
   };
 
   const handleMonthClick = (monthIndex: number) => {
-    setSelectedMonth(monthIndex);
+    if (selectedMonth === monthIndex) {
+      setSelectedMonth(null); // Deselect the month if it's already selected
+    } else {
+      setSelectedMonth(monthIndex);
+    }
   };
 
   const handleDeleteExpense = async (expenseId: string) => {
@@ -219,7 +225,7 @@ const Dashboard = () => {
           <h2 className="text-2xl mb-4 text-gray-900 dark:text-gray-100">Edit Expense</h2>
           <form onSubmit={handleConfirmEdit}>
             <div className="mb-4">
-              <label htmlFor="description" className="block text-lg font-medium text-gray-700 dark:text-gray-300">Description:</label>
+              <label htmlFor="description" className="block text-lg font-medium text-gray-700 dark:text-white">Description:</label>
               <input
                 type="text"
                 id="description"
@@ -229,7 +235,7 @@ const Dashboard = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="amount" className="block text-lg font-medium text-gray-700 dark:text-gray-300">Amount:</label>
+              <label htmlFor="amount" className="block text-lg font-medium text-gray-700 dark:text-white">Amount:</label>
               <input
                 type="number"
                 id="amount"
@@ -239,7 +245,7 @@ const Dashboard = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="saving" className="block text-lg font-medium text-gray-700 dark:text-gray-300">Saving:</label>
+              <label htmlFor="saving" className="block text-lg font-medium text-gray-700 dark:text-white">Saving:</label>
               <input
                 type="number"
                 id="saving"
@@ -266,8 +272,8 @@ const Dashboard = () => {
       <div className="grid gap-8">
         <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-[26px] m-4">
           <div className="border-[20px] border-transparent rounded-[20px] dark:bg-gray-900 bg-white shadow-lg xl:p-10 2xl:p-10 lg:p-10 md:p-10 sm:p-2 m-2">
-            <h1 className="pt-8 pb-6 font-bold text-5xl dark:text-white text-center cursor-default">
-              Velkommen, {userData ? userData.username : 'Guest'}!
+            <h1 className="pt-8 pb-6 font-bold text-5xl dark:text-gray-400 text-center cursor-default">
+              Welcome, {userData ? userData.username : 'Guest'}!
             </h1>
             <button
               onClick={handleLogout}
@@ -305,8 +311,8 @@ const Dashboard = () => {
                     onClick={() => handleMonthClick(index)}
                   >
                     <div>{month}</div>
-                    <div>Brugt: {totalSpent}DKK</div>
-                    <div>Sparet: {totalSaved}DKK</div>
+                    <div>Spent: {totalSpent}DKK</div>
+                    <div>Saved: {totalSaved}DKK</div>
                   </div>
                 );
               })}
@@ -317,7 +323,7 @@ const Dashboard = () => {
               <div className="mt-8">
                 <h2 className="text-xl font-bold">Log Expense for {months[selectedMonth]}</h2>
                 <div className="mb-4">
-                  <label htmlFor="description" className="block text-lg font-medium text-white">Description:</label>
+                  <label htmlFor="description" className="block text-lg font-medium dark:text-white">Description:</label>
                   <input
                     type="text"
                     id="description"
@@ -327,7 +333,7 @@ const Dashboard = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="amount" className="block text-lg font-medium text-white">Amount Spent:</label>
+                  <label htmlFor="amount" className="block text-lg font-medium dark:text-white">Amount Spent:</label>
                   <input
                     type="number"
                     id="amount"
@@ -337,7 +343,7 @@ const Dashboard = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="saving" className="block text-lg font-medium text-white">Amount Saved:</label>
+                  <label htmlFor="saving" className="block text-lg font-medium dark:text-white">Amount Saved:</label>
                   <input
                     type="number"
                     id="saving"
