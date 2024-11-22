@@ -70,3 +70,56 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Custom scrollbar styles */
+.custom-scrollbar {
+  margin-left: 10px; /* Add left margin */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Hide the track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #4f46e5, #7c3aed); /* Gradient thumb */
+  border-radius: 50%; /* Make the thumb a circle */
+  height: 20px; /* Set the height of the thumb */
+  border: 3px solid #e5e7eb; /* Add a border to make it look like a dot */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #4338ca, #6d28d9); /* Darker gradient on hover */
+}
+
+/* Firefox scrollbar styles */
+.custom-scrollbar {
+  scrollbar-width: thin; /* Make the scrollbar thin */
+  scrollbar-color: #4f46e5 transparent; /* Gradient thumb and transparent track */
+}
+
+/* Dark mode custom scrollbar styles */
+@media (prefers-color-scheme: dark) {
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* Hide the track */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #6366f1, #8b5cf6); /* Gradient thumb */
+    border-radius: 50%; /* Make the thumb a circle */
+    height: 20px; /* Set the height of the thumb */
+    border: 3px solid #374151; /* Add a border to make it look like a dot */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #4f46e5, #7c3aed); /* Darker gradient on hover */
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin; /* Make the scrollbar thin */
+    scrollbar-color: #6366f1 transparent; /* Gradient thumb and transparent track */
+  }
+}
